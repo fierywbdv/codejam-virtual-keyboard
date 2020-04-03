@@ -617,5 +617,44 @@ CONTAINER.appendChild(buildwrapper(lang));
 
 
 
+// ----------------------------нажатие мышью -----------------------
+let text = '';
+const div = document.querySelector('div');
+div.addEventListener('mousedown', (event) => {
+  const button = event.target;
+
+  if (
+    (button.className === 'element' || button.id === 'Backslash')
+    && button.innerText.length === 1
+  ) {
+    text += button.innerText;
+    document.querySelector('.textarea').innerHTML = text;
+  }
+
+  if (button.id === 'Space') {
+    text += ' ';
+    document.querySelector('.textarea').innerHTML = text;
+  }
+
+  if (button.id === 'Backspace') {
+    const textreturn = document.querySelector('.textarea').innerHTML;
+    text = textreturn
+      .split('')
+      .slice(0, -1)
+      .join('');
+    document.querySelector('.textarea').innerHTML = text;
+  }
+
+  if (button.id === 'Enter') {
+    text += '\n';
+    document.querySelector('.textarea').innerHTML = text;
+  }
+
+  if (button.id === 'Tab') {
+    event.preventDefault();
+    text += '   ';
+    document.querySelector('.textarea').innerHTML = text;
+  }
+});
 
 
