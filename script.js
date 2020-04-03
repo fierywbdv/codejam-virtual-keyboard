@@ -657,4 +657,133 @@ div.addEventListener('mousedown', (event) => {
   }
 });
 
+// ----------------------------------анимация нажатия клавиатурой-----------------------------
+document.addEventListener('keydown', (event) => {
+  // подсветка нажатых клавиш
+  const active = document.querySelector(`#${event.code}`);
+  active.classList.add('element-active_keyboard');
+});
 
+document.addEventListener('keyup', (event) => {
+  // убираем класс актив с нажатых клавиш (после из отпускания)
+  const active = document.querySelector(`#${event.code}`);
+  active.classList.remove('element-active_keyboard');
+});
+
+// ----------------------------нажатие клавиатурой -----------------------
+
+
+document.addEventListener('keydown', (event) => {
+  const textarea = document.querySelector('.textarea');
+  const buttonkeyboard = event.key;
+
+  // ---------------------CapsLocK-----------------------
+  // const wrapper = document.createElement('div');
+  if (buttonkeyboard === 'CapsLock') {
+    if (!capsLock) {
+      if (lang === 'en') {
+        wrapper.remove();
+        CONTAINER.appendChild(buildwrapper('enShift'));
+        lang = 'enShift';
+        document.querySelector('#CapsLock').classList.add('active');
+        capsLock = true;
+        return;
+      }
+      if (lang === 'ru') {
+        wrapper.remove();
+        CONTAINER.appendChild(buildwrapper('ruShift'));
+        lang = 'ruShift';
+        document.querySelector('#CapsLock').classList.add('active');
+        capsLock = true;
+        return;
+      }
+      return;
+    }
+    if (capsLock) {
+      if (lang === 'enShift') {
+        wrapper.remove();
+        CONTAINER.appendChild(buildwrapper('en'));
+        document.querySelector('#CapsLock').classList.remove('active');
+        lang = 'en';
+        capsLock = false;
+        return;
+      }
+      if (lang === 'ruShift') {
+        wrapper.remove();
+        CONTAINER.appendChild(buildwrapper('ru'));
+        document.querySelector('#CapsLock').classList.remove('active');
+        capsLock = false;
+        lang = 'ru';
+        capsLock = false;
+        return;
+      }
+      return;
+    }
+    return;
+  }
+
+  // ---------------------------вывод символов----------------------
+  const a = KEYS.flat();
+
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i].call === event.code
+      && lang === 'en'
+      && a[i].english.length === 1
+    ) {
+      text += a[i].english;
+      textarea.innerHTML = text;
+    }
+
+    if (
+      a[i].call === event.code
+      && lang === 'enShift'
+      && a[i].russian.length === 1
+    ) {
+      text += a[i].enShift;
+      textarea.innerHTML = text;
+    }
+
+    if (
+      a[i].call === event.code
+      && lang === 'ru'
+      && a[i].russian.length === 1
+    ) {
+      text += a[i].russian;
+      textarea.innerHTML = text;
+    }
+    if (
+      a[i].call === event.code
+      && lang === 'ruShift'
+      && a[i].russian.length === 1
+    ) {
+      text += a[i].ruShift;
+      textarea.innerHTML = text;
+    }
+  }
+
+
+  if (event.code === 'Space') {
+    text += ' ';
+    textarea.innerHTML = text;
+  }
+
+  if (buttonkeyboard === 'Backspace') {
+    const textreturn = document.querySelector('.textarea').innerHTML;
+    text = textreturn
+      .split('')
+      .slice(0, -1)
+      .join('');
+    textarea.innerHTML = text;
+  }
+
+  if (buttonkeyboard === 'Enter') {
+    text += '\n';
+    textarea.innerHTML = text;
+  }
+
+  if (event.code === 'Tab') {
+    event.preventDefault();
+    text += '   ';
+    textarea.innerHTML = text;
+  }
+});
