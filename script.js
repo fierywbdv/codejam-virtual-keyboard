@@ -582,10 +582,10 @@ function buildwrapper(lang) {
 }
 
 // --------------------------выбираем и сохраняем язык -------------------------------------------
+
 let lang = localStorage.getItem('language');
 if (lang === 'null') lang = 'en';
 localStorage.setItem('language', lang);
-
 // -------------------------------------меняем язык----------------------------------
 
 document.addEventListener('keydown', (event) => {
