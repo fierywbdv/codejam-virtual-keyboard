@@ -581,3 +581,41 @@ function buildwrapper(lang) {
   return wrapper;
 }
 
+// --------------------------выбираем и сохраняем язык -------------------------------------------
+let lang;
+if (!localStorage) {
+  lang = 'en';
+} else {
+  lang = localStorage.getItem('language');
+}
+localStorage.setItem('language', lang);
+
+// -------------------------------------меняем язык----------------------------------
+
+document.addEventListener('keydown', (event) => {
+  event.preventDefault();
+  wrapper = document.getElementById('wrapper');
+  if (event.ctrlKey && event.key === 'Alt') {
+    wrapper.remove();
+    if (lang === 'en') {
+      lang = 'ru';
+      CONTAINER.appendChild(buildwrapper('ru'));
+    } else {
+      lang = 'en';
+      CONTAINER.appendChild(buildwrapper('en'));
+    }
+    localStorage.setItem('language', lang);
+  }
+});
+
+// ----------------------------создаем архитектуру клавиатуры-------------------------------------
+
+document.body.appendChild(CONTAINER); // создаем элемент CONTAINER в body
+CONTAINER.appendChild(TEXTAREA); // создаем элемент "textarea" в CONTAINER
+TEXTAREA.classList.add('textarea'); // добавляем элементу textarea класс "textarea" для ввода текста
+CONTAINER.appendChild(buildwrapper(lang));
+
+
+
+
+
