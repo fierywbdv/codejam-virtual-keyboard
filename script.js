@@ -582,12 +582,8 @@ function buildwrapper(lang) {
 }
 
 // --------------------------выбираем и сохраняем язык -------------------------------------------
-let lang;
-if (!localStorage) {
-  lang = 'en';
-} else {
-  lang = localStorage.getItem('language');
-}
+let lang = localStorage.getItem('language');
+if (lang === 'null') lang = 'en';
 localStorage.setItem('language', lang);
 
 // -------------------------------------меняем язык----------------------------------
