@@ -526,3 +526,58 @@ const KEYS = [
   ],
 ];
 
+// -----------------------------функция добавления элементов в конец узлов------------
+function addElem(child, parent) {
+  // добавлем узел в конец списка дочерних элементов указанного родительского узла
+  parent.appendChild(child);
+}
+
+// ----------------------------------функция создания кнопок----------------------------
+
+function makeElem(call, text, type) {
+  const element = document.createElement('element'); // создаем класс "element"
+  element.id = call; // присваиваем id кнопкам исходя из его call (event.code)
+  element.innerText = text; // присваиваем значение кнопке
+  element.className = type; // присваиваем кнопке класс исходя из пришедшего значения объекта
+  return element; // возвращаем кнопку
+}
+
+// ----------------------------функция создания клавиатуры----------------------------------------
+function buildwrapper(lang) {
+  wrapper = document.createElement('div'); // создаем элемент div для клавиатуры
+  wrapper.className = 'element-wrapper';
+  wrapper.id = 'wrapper';
+  KEYS.forEach((el) => {
+    // проходим по всем элементам KEYS
+    const line = document.createElement('div'); // создаем новый элемент ('div') - для линий (в клавиатуре, wrapper)
+    line.className = 'line'; // создаем новый класс 'line'- для элемента line
+
+    el.forEach((elem) => {
+      const indexespecial = SPESIALBUTTONS.indexOf(elem.call);
+
+      if (indexespecial !== -1) {
+        // .indexOf(element.call) для спецкнопок не равен -1
+        addElem(makeElem(elem.call, elem.english, elem.type), line); // добавляем спецкнопки
+      }
+
+      if (indexespecial === -1 && lang === 'en') {
+        addElem(makeElem(elem.call, elem.english, 'element'), line); // добавляем кнопки обычные
+      }
+
+      if (indexespecial === -1 && lang === 'enShift') {
+        addElem(makeElem(elem.call, elem.enShift, 'element'), line); // добавляем кнопки обычные
+      }
+
+      if (indexespecial === -1 && lang === 'ru') {
+        addElem(makeElem(elem.call, elem.russian, 'element'), line); // добавляем кнопки обычные
+      }
+
+      if (indexespecial === -1 && lang === 'ruShift') {
+        addElem(makeElem(elem.call, elem.ruShift, 'element'), line); // добавляем кнопки обычные
+      }
+    });
+    addElem(line, wrapper); // вызываем функцию addElem с параметрами line и keyboard
+  });
+  return wrapper;
+}
+
