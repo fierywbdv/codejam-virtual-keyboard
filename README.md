@@ -2,7 +2,7 @@
 ## RSSchool 2020 Q1
 ### by @GoldenkovVitali
 
-[codejam-virtual-keyboard] https://goldenkovvitali.github.io/codejam-virtual-keyboard/
+[codejam-virtual-keyboard]https://goldenkovvitali.github.io/codejam-virtual-keyboard/
 
 ## Для проверяющих:
 
