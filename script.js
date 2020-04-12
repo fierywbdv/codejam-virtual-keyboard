@@ -726,6 +726,12 @@ document.addEventListener('keydown', (event) => {
 
   // ---------------------------вывод символов----------------------
   const a = KEYS.flat();
+  // const addLetterToTextArea = (textarea, lang, eventCode, keysArray) => {
+  //   const flattenedArrayOfKeys = keysArray.flat();
+  //   const keyData = flattenedArrayOfKeys.find(({ call }) => call === eventCode);
+  //   const letter = keyData[lang];
+  //   textarea.innerHTML = `${textarea.innerHTML}${letter}`;
+  // };
 
   for (let i = 0; i < a.length; i += 1) {
     if (a[i].call === event.code
